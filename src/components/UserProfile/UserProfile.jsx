@@ -18,11 +18,11 @@ const UserProfile = ({userData}) => {
 
   return (
     <div className="userProfile">
-      <img src={userData.avatar_url} alt="profile-picture" />
-        <h2>{userData.username}</h2>
+      <img src={userData?.avatar_url} alt="profile-picture" />
+        <h2>{userData?.username}</h2>
         <div className="followDetails">
-          <h3 onClick={() => displayFollowDetails(userData.followers)}> Followers: {userData.followers?.length}</h3>
-          <h3 onClick={() => displayFollowDetails(userData.following)}> Following: {userData.following?.length}</h3>
+          <h3 onClick={() => displayFollowDetails(userData?.followers)}> Followers: {userData.followers?.length}</h3>
+          <h3 onClick={() => displayFollowDetails(userData?.following)}> Following: {userData.following?.length}</h3>
       </div>
       {
         popUpState ? <FollowListPopUp data={type} togglePopUp={togglePopUp} /> : null

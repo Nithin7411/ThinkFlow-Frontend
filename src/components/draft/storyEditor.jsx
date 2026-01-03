@@ -4,7 +4,7 @@ import Header from '@editorjs/header';
 import Paragraph from '@editorjs/paragraph';
 import { useEffect, useRef } from 'react';
 
-const StoryEditor = ({ initialStory, onStoryChange }) => {
+const StoryEditor = ({ initialStory, onStoryChange, onEditorReady  }) => {
   const editorInstance = useRef(null);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const StoryEditor = ({ initialStory, onStoryChange }) => {
         },
         onReady: () => {
           editorInstance.current = storyEditor;
+          onEditorReady?.(storyEditor);
         },
       });
     }
@@ -108,6 +109,7 @@ const StoryEditor = ({ initialStory, onStoryChange }) => {
 StoryEditor.propTypes = {
   initialStory: PropTypes.object.isRequired,
   onStoryChange: PropTypes.func.isRequired,
+  onEditorReady: PropTypes.func,
 };
 
 export default StoryEditor;

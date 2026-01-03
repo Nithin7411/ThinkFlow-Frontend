@@ -1,42 +1,53 @@
-import { useEffect, useState } from 'react';
-import StoryEditor from './storyEditor';
-import { useLocation } from 'react-router-dom';
-import Header from '../Navbar/Navbar';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Header from "../Navbar/Navbar";
+import StoryEditor from "./storyEditor";
+import useGemini from "../ai/useGemini";
+import FloatingAIButton from "./FloatingAIButton";
+import "../draft/style.css";
 
 const NewStoryEditor = () => {
   const location = useLocation();
   const draftData = location.state?.draft;
+
   const [storyId, setStoryId] = useState(draftData ? draftData.id : null);
-  const [editorData, setEditorData] = useState(draftData ? { title: draftData.title, content: draftData.content } : { title: '', content: [] });
-  const [saveMessage, setSaveMessage] = useState('');
+  const [editorData, setEditorData] = useState(
+    draftData
+      ? { title: draftData.title, content: draftData.content }
+      : { title: "", content: [] }
+  );
+  const [saveMessage, setSaveMessage] = useState("");
   const [storytags, setTags] = useState([]);
 
+  const [editorRef, setEditorRef] = useState(null);
+  const [layoutState, setLayoutState] = useState("layout-editor");
+
+  const gemini = useGemini(editorRef);
+
   const saveData = async () => {
-    const dataToSend = {
+    const payload = {
       storyId,
       title: editorData.title,
       content: editorData.content,
     };
+
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/story`, {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToSend),
-      });
-      if (response.ok) {
-        const result = await response.json();
-        setSaveMessage(result.status);
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/story`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (res.ok) {
+        const result = await res.json();
         setStoryId(result.storyId);
-      } else {
-        const error = await response.json();
-        setSaveMessage(`Error: ${error.error || 'Unknown error occurred'}`);
+        setSaveMessage(result.status);
       }
-    } catch (error) {
-      setSaveMessage(`Network error: ${error.message}`);
-    }
+    } catch {}
   };
 
   useEffect(() => {
@@ -46,52 +57,126 @@ const NewStoryEditor = () => {
   }, [editorData.title, editorData.content]);
 
   useEffect(() => {
-    if (saveMessage) {
-      const timer = setTimeout(() => setSaveMessage(''), 1500);
-      return () => clearTimeout(timer);
-    }
+    if (!saveMessage) return;
+    const t = setTimeout(() => setSaveMessage(""), 1500);
+    return () => clearTimeout(t);
   }, [saveMessage]);
 
   const publishStory = async (storyId, tags) => {
-  setTags(tags); // keep local state in sync (optional but good)
-  const dataToSend = {
-    tags,
+    setTags(tags);
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/story/${storyId}/publish`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tags }),
+        }
+      );
+
+      if (res.ok) {
+        setSaveMessage("Story published successfully!");
+      }
+    } catch {}
   };
 
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/story/${storyId}/publish`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
-      }
-    );
-
-    if (response.ok) {
-      const result = await response.json();
-      setSaveMessage("Story published successfully!");
-    } else {
-      const error = await response.json();
-      setSaveMessage(`Error: ${error.error || "Unknown error occurred"}`);
+  const toggleGeminiPrompt = () => {
+    if (layoutState === "layout-gemini-prompt") {
+      setLayoutState("layout-editor");
+      gemini.setInstruction("");
+      return;
     }
-  } catch (error) {
-    setSaveMessage(`Network error: ${error.message}`);
-  }
-};
+
+    gemini.setOutput("");
+    setLayoutState("layout-gemini-prompt");
+  };
+
+  const generateFromGemini = async () => {
+    await gemini.generate();
+    setLayoutState("layout-gemini-output");
+  };
+
+  const acceptGemini = () => {
+    gemini.insertIntoEditor();
+    gemini.setOutput("");
+    gemini.setInstruction("");
+    setLayoutState("layout-editor");
+  };
+
+  const rejectGemini = () => {
+    gemini.setOutput("");
+    gemini.setInstruction("");
+    setLayoutState("layout-editor");
+  };
 
   return (
     <>
-      <Header onClick={publishStory} data={editorData} storyId={storyId} setTags={setTags} />
-      {saveMessage && <div className='save-message'>Draft saved</div>}
-      <div className='story-editor'>
-        <StoryEditor
-          initialStory={editorData}
-          onStoryChange={(newStoryData) => setEditorData(newStoryData)}
-        />
+      <Header
+        onClick={publishStory}
+        data={editorData}
+        storyId={storyId}
+        setTags={setTags}
+      />
+
+      {saveMessage && <div className="save-message">Draft saved</div>}
+
+      <FloatingAIButton onClick={toggleGeminiPrompt} />
+
+      <div className={`editor-shell ${layoutState}`}>
+
+        {layoutState === "layout-gemini-prompt" && (
+          <aside className="gemini-panel">
+            <h4>Ask Gemini</h4>
+
+            <textarea
+              placeholder="Tell AI what to do…"
+              value={gemini.instruction}
+              onChange={(e) => gemini.setInstruction(e.target.value)}
+            />
+
+            <button
+              className="primary"
+              onClick={generateFromGemini}
+              disabled={!gemini.isReady || gemini.loading}
+            >
+              {gemini.loading ? "Thinking…" : "Generate"}
+            </button>
+
+            <button className="ghost" onClick={rejectGemini}>
+              Cancel
+            </button>
+          </aside>
+        )}
+
+
+        <main className="editor-main">
+          <div className="editor-content">
+            <StoryEditor
+              initialStory={editorData}
+              onStoryChange={setEditorData}
+              onEditorReady={setEditorRef}
+            />
+          </div>
+        </main>
+
+        {layoutState === "layout-gemini-output" && (
+          <aside className="gemini-panel right">
+            <h4>AI Suggestion</h4>
+
+            <textarea readOnly value={gemini.output} />
+
+            <button className="primary" onClick={acceptGemini}>
+              Accept
+            </button>
+
+            <button className="ghost" onClick={rejectGemini}>
+              Reject
+            </button>
+          </aside>
+        )}
+
       </div>
     </>
   );

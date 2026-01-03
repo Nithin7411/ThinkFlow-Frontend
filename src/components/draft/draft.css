@@ -179,11 +179,11 @@
   cursor: pointer;
 }
 
-/* .drafts-story-button:active {
+.drafts-story-button:active {
   font-weight: bold;
   background-color: #ccc;
   text-decoration: underline;
-} */
+} 
 
 .black-btn {
   background-color: #333;

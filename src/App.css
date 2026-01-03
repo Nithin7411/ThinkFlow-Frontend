@@ -284,3 +284,24 @@
     background-color: rgb(223, 223, 223);
     color: rgb(52, 52, 52);
 }
+
+/* ================= GLOBAL LAYOUT FIX ================= */
+
+/* Make app root flexible */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header stays normal */
+header {
+  flex-shrink: 0;
+}
+
+/* Pages can control their own width */
+.page,
+.editor-page {
+  flex: 1;
+  width: 100%;
+}
