@@ -1,0 +1,47 @@
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  animation: spin-slow 4s infinite linear;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1 / 1;
+  border: 8px solid;
+  border-radius: 50%;
+  mix-blend-mode: darken;
+  animation: spin-fast 1s infinite linear;
+}
+
+/* GREEN arc */
+.loader::before {
+  border-color: #1db954 #1db954 transparent transparent;
+}
+
+/* WHITE arc (reverse) */
+.loader::after {
+  border-color: transparent transparent #7c9efa #7c9efa;
+  animation-direction: reverse;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes spin-fast {
+  to {
+    transform: rotate(1turn);
+  }
+}

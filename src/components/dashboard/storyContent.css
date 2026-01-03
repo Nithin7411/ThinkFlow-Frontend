@@ -1,0 +1,366 @@
+.story {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 25px;
+  padding-bottom: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  font-family: Arial, sans-serif !important;
+  color: #333;
+  line-height: 1.8;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.story a {
+  text-decoration: none !important;
+}
+
+.AuthorInfo {
+  display: flex;
+  align-items: center;
+}
+
+.followList .AuthorInfo {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.storyTitle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.storyAvatar {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-right: 15px;
+  transition: transform 0.2s ease;
+}
+
+.followList .storyAvatar {
+  height: 50px;
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-right: 15px;
+  transition: transform 0.2s ease;
+}
+
+.authorName {
+  font-size: 1.1em;
+  color: #666;
+}
+
+.authorName strong {
+  color: #333;
+}
+
+.authorName span {
+  font-style: italic;
+  color: #999;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 25px 0;
+}
+
+p {
+  margin: 15px 0;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 25px 0 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: #0056b3;
+}
+
+body {
+  background-color: #f7f8fa;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.introText {
+  color: black !important;
+}
+
+.story-reactions {
+  display: flex;
+  gap: 15%;
+  margin: 5px;
+  border-top: 1px solid #ecebeb;
+  border-bottom: 1px solid #ecebeb;
+  padding: 7px 5px;
+}
+
+.responses-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 414px;
+  background-color: white;
+  z-index: 10;
+  padding: 10px;
+  overflow: auto;
+}
+
+.responses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.responded-user {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 8px;
+  border-bottom: 2px solid #dcdbdb;
+}
+
+.responded-user .user-details {
+  display: flex;
+  justify-content: flex-start;
+  padding: 4px 8px;
+  width: 100%;
+  align-items: center;
+}
+
+.responded-user .user-details .storyAvatar {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.responded-user h2 {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+}
+
+.responded-user li {
+  margin-top: 8px;
+  padding: 8px;
+  padding-left: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.responded-user li p {
+  margin: 0;
+  padding: 0;
+}
+
+.close-responses {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.close-responses button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 30px;
+  width: 10%;
+  padding: 5px 8px;
+  background-color: transparent;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+}
+
+.editorjs-response {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 80%;
+  background-color: #f2eeeea9;
+  padding: 25px;
+  margin: 5% auto;
+  border-radius: 12px;
+}
+
+.editorjs-response .ce-block {
+  position: absolute;
+  top: 44%;
+  right: -10px;
+  padding-left: 4px;
+  width: 210px;
+}
+
+.editorjs-response .ce-toolbar__plus {
+  visibility: hidden;
+}
+
+.clap_container {
+  display: flex;
+  justify-content: baseline;
+  position: relative;
+}
+
+.greyButton {
+  fill: white;
+  margin: auto;
+  transition: fill 0.3s ease, transform 0.3s ease;
+  stroke: #5c5c5c;
+  stroke-width: 0.7px;
+  cursor: pointer;
+}
+
+.blackButton {
+  fill: #333;
+  margin: auto;
+  transition: fill 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.greyButton:hover {
+  fill: white;
+  transform: scale(1.05);
+  stroke: black;
+  stroke-width: 0.7px;
+}
+
+.blackButton :hover {
+  fill: #333;
+  transform: scale(1.05);
+}
+
+.clapCount {
+  color: #6B6B6B;
+}
+
+.authorNote {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  background-color: #f5e2e3;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+.story-views {
+  width: fit-content;
+  color: #6B6B6B;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.shareLinkPopup {
+  color: rgba(0, 0, 0, 0.338);
+  border-radius: 9px;
+  margin-left: -10%;
+}
+
+.shareButton {
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.responded-user .AuthorInfo {
+  border: none;
+}
+
+.responded-user strong {
+  font-size: 14px;
+}
+
+.responded-user img {
+  height: 40px;
+  width: 40px;
+}
+
+.respondButton {
+  display: inline;
+  border: none;
+  color: white;
+  font-family: arial;
+  background-color: rgba(0, 0, 0, 0.916);
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  margin: 0;
+  margin-left: 20vh;
+  cursor: pointer;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 10;
+}
+
+/* .responseModalBackground {
+  position:relative;
+  background-color: #736c6c;
+  width: 100vw;
+  height: fit-content;
+  z-index: 100;
+} */
+
+.tags-container{
+   display: flex;
+   gap:10px;
+   align-items: center;
+   font-size: larger;
+   font-weight: 700;
+
+}
+
+.tag{
+  padding: 1px 10px;
+   margin: 10px 1px;
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+ border-left: 2px solid #908f8f;
+ background-color: #e8e8e8;
+}

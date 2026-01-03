@@ -1,0 +1,51 @@
+.ai-panel {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-panel textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+  outline: none;
+}
+
+.ai-panel textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+.ai-panel button {
+  align-self: flex-end;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ai-panel button:hover {
+  background: #4f46e5;
+}
+
+.ai-panel button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ai-panel textarea[readonly] {
+  background: #f9f9f9;
+  font-family: system-ui, sans-serif;
+}
