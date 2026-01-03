@@ -15,7 +15,7 @@ const ResponseEditor = ({ onNewResponse }) => {
   useEffect(() => {
     const checkLoggedInStatus = async () => {
       try {
-        const data = await fetchApi("http://localhost:8000/isLoggedIn");
+        const data = await fetchApi("`${import.meta.env.VITE_API_URL}/isLoggedIn");
         setIsLoggedIn(Boolean(data.isLoggedIn));
       } catch (err) {
         console.error("Auth check failed", err);
@@ -74,7 +74,7 @@ const ResponseEditor = ({ onNewResponse }) => {
       };
 
       const response = await fetch(
-        `http://localhost:8000/story/${id}/response`,
+        `${import.meta.env.VITE_API_URL}/story/${id}/response`,
         {
           method: "POST",
           credentials: "include",

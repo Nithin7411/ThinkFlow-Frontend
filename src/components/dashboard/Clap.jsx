@@ -16,7 +16,7 @@ const Clap = ({ story }) => {
   useEffect(() => {
     const checkLoggedInStatus = async () => {
       try {
-        const data = await fetchApi("http://localhost:8000/isLoggedIn");
+        const data = await fetchApi("`${import.meta.env.VITE_API_URL}/isLoggedIn");
         setIsLoggedIn(Boolean(data.isLoggedIn));
         setCurrentUser(data.user || null);
       } catch (err) {
@@ -51,7 +51,7 @@ const Clap = ({ story }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/story/${story.id}/clap`,
+        `${import.meta.env.VITE_API_URL}/story/${story.id}/clap`,
         {
           method: "PUT",
           credentials: "include",

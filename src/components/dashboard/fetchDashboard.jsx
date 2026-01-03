@@ -7,7 +7,7 @@ const useFetchData = () => {
   useEffect(() => {
     const fetchdashboard = async () => {
           try {
-            const dashboard = await fetchApi(`http://localhost:8000/user/dashboard`);
+            const dashboard = await fetchApi(`${import.meta.env.VITE_API_URL}/user/dashboard`);
             if (dashboard) {
               setData([dashboard]);
             } 

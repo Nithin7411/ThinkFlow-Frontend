@@ -23,7 +23,7 @@ const StoryContainer = ({ element, username, userProfile }) => {
       if (!storyId) return;
 
       const res = await fetchApi(
-        `http://localhost:8000/story/${storyId}/responses`
+        `${import.meta.env.VITE_API_URL}/story/${storyId}/responses`
       );
 
       setResponsesCount(res.responses?.length || 0);
@@ -35,7 +35,7 @@ const StoryContainer = ({ element, username, userProfile }) => {
   /* ===== Story click ===== */
   const handleTitleClick = async () => {
     const res = await fetchApi(
-      `http://localhost:8000/story/${storyId}`
+      `${import.meta.env.VITE_API_URL}/story/${storyId}`
     );
 
     setStory(res.story);

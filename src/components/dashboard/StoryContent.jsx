@@ -41,8 +41,8 @@ const Storycontent = () => {
         setError(false);
 
         const [storyRes, responsesRes] = await Promise.all([
-          fetchApi(`http://localhost:8000/story/${id}`),
-          fetchApi(`http://localhost:8000/story/${id}/responses`)
+          fetchApi(`${import.meta.env.VITE_API_URL}/story/${id}`),
+          fetchApi(`${import.meta.env.VITE_API_URL}/story/${id}/responses`)
         ]);
 
         setStory(storyRes.story);

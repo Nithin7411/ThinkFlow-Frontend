@@ -11,7 +11,7 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchSearchDetails = async () => {
       if (searchValue) {
-        const data = await fetchApi(`http://localhost:8000/search?keyword=${searchValue}`);
+        const data = await fetchApi(`${import.meta.env.VITE_API_URL}/search?keyword=${searchValue}`);
         setSearchResults(data.contentBased || []);
       } else {
         setSearchResults([]);

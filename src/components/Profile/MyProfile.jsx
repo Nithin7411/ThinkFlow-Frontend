@@ -20,9 +20,9 @@ const MyProfile =  () => {
 
   const [userData, setData] = useState({});
   const getUserData = async () => {
-    const data = await fetchApi('http://localhost:8000/isloggedin');
+    const data = await fetchApi(`${import.meta.env.VITE_API_URL}/isloggedin`);
 
-    const profileInfo = await fetchApi('http://localhost:8000/user/profile/' + data.user.id);
+    const profileInfo = await fetchApi(`${import.meta.env.VITE_API_URL}/user/profile/` + data.user.id);
         console.log(profileInfo);
     setData(profileInfo);
   };

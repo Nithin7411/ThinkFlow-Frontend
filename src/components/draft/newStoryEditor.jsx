@@ -18,7 +18,7 @@ const NewStoryEditor = () => {
       content: editorData.content,
     };
     try {
-      const response = await fetch(`http://localhost:8000/story`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/story`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
@@ -60,7 +60,7 @@ const NewStoryEditor = () => {
 
   try {
     const response = await fetch(
-      `http://localhost:8000/story/${storyId}/publish`,
+      `${import.meta.env.VITE_API_URL}/story/${storyId}/publish`,
       {
         method: "POST",
         credentials: "include",

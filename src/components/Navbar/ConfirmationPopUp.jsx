@@ -4,7 +4,7 @@ import fetchApi from "../script/fetchApi";
 const ConfirmationPopUP = ({togglePopup}) => {
   const navigate = useNavigate();
   const handleLogout = async () => {
-    const data = await fetchApi('http://localhost:8000/user/logout', 'POST');
+    const data = await fetchApi(`${import.meta.env.VITE_API_URL}/user/logout`, 'POST');
     if(data.status) {
       navigate("/");
     }

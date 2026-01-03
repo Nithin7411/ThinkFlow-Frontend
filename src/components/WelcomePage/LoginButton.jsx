@@ -19,7 +19,7 @@ const LoginButton = () => {
       const result = await signInWithPopup(auth, provider);
       const token = await result.user.getIdToken();
 
-      await fetch("http://localhost:8000/firebase-login", {
+      await fetch("`${import.meta.env.VITE_API_URL}/firebase-login", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

@@ -20,12 +20,12 @@ const Header = function ({ onClick, storyId, data, setTags }) {
   };
 
   const getProfileIcon = async function () {
-    const data = await fetchApi('http://localhost:8000/user/dashboard');
+    const data = await fetchApi(`${import.meta.env.VITE_API_URL}/user/dashboard`);
     
   };
 
   const checkLoggedInStatus = async function () {
-   const data = await fetchApi("http://localhost:8000/isLoggedIn");
+   const data = await fetchApi("`${import.meta.env.VITE_API_URL}/isLoggedIn");
     setIsLoggedIn(data.isLoggedIn);
     if (data.isLoggedIn) {
       setAvatar(data.user.avatar_url);

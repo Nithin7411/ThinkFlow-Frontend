@@ -12,7 +12,7 @@ const PublishedStories = () => {
 
   const fetchPublishedStories = async () => {
     try {
-      const stories = await fetchApi('http://localhost:8000/user/stories');
+      const stories = await fetchApi(`${import.meta.env.VITE_API_URL}/user/stories`);
       setPubStories(stories.published);
     } catch (error) {
       console.log(error);

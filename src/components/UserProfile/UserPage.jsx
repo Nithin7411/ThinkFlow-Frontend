@@ -11,7 +11,7 @@ const UserPage = () => {
   useEffect (() => {
     try{
       const getAuthorData = async () => {
-      const data = await fetchApi('http://localhost:8000/user/profile/' + id);
+      const data = await fetchApi(`${import.meta.env.VITE_API_URL}/user/profile/` + id);
       setAuthorData(data);
       }
       getAuthorData();

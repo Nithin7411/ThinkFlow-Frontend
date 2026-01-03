@@ -21,7 +21,7 @@ const Drafts = () => {
   };
   const fetchDrafts = async () => {
     try {
-      const data = await fetchApi('http://localhost:8000/user/stories');
+      const data = await fetchApi(`${import.meta.env.VITE_API_URL}/user/stories`);
       
       setDrafts(data.drafts);
     } catch (error) {

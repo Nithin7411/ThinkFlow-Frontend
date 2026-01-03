@@ -4,7 +4,7 @@ const DeleteConfirmationPopup = ({togglePopup,fetchDrafts,draftId}) => {
     try {
       const Draft = { draftId: draftId };
       console.log(JSON.stringify(Draft));
-       await fetch(`http://localhost:8000/draft`, {
+       await fetch(`${import.meta.env.VITE_API_URL}/draft`, {
         method: 'DELETE',
         credentials: "include",
         headers: {
