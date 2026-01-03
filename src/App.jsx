@@ -20,7 +20,7 @@ function App() {
       if (user) {
         const token = await user.getIdToken();
 
-        await fetch("`${import.meta.env.VITE_API_URL}/firebase-login", {
+        await fetch(`${import.meta.env.VITE_API_URL}/firebase-login`, {
           method: "POST",
           credentials: "include",
           headers: {

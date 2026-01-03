@@ -25,7 +25,7 @@ const Header = function ({ onClick, storyId, data, setTags }) {
   };
 
   const checkLoggedInStatus = async function () {
-   const data = await fetchApi("`${import.meta.env.VITE_API_URL}/isLoggedIn");
+   const data = await fetchApi(`${import.meta.env.VITE_API_URL}/isLoggedIn`);
     setIsLoggedIn(data.isLoggedIn);
     if (data.isLoggedIn) {
       setAvatar(data.user.avatar_url);

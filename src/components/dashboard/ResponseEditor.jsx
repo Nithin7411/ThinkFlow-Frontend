@@ -15,7 +15,7 @@ const ResponseEditor = ({ onNewResponse }) => {
   useEffect(() => {
     const checkLoggedInStatus = async () => {
       try {
-        const data = await fetchApi("`${import.meta.env.VITE_API_URL}/isLoggedIn");
+        const data = await fetchApi(`${import.meta.env.VITE_API_URL}/isLoggedIn`);
         setIsLoggedIn(Boolean(data.isLoggedIn));
       } catch (err) {
         console.error("Auth check failed", err);
