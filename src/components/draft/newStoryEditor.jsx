@@ -17,6 +17,7 @@ const NewStoryEditor = () => {
       : { title: "", content: [] }
   );
   const [saveMessage, setSaveMessage] = useState("");
+  const[coverUrl,setCoverUrl] = useState("");
   const [storytags, setTags] = useState([]);
 
   const [editorRef, setEditorRef] = useState(null);
@@ -62,9 +63,9 @@ const NewStoryEditor = () => {
     return () => clearTimeout(t);
   }, [saveMessage]);
 
-  const publishStory = async (storyId, tags) => {
+  const publishStory = async (storyId, tags, coverImageUrl) => {
     setTags(tags);
-
+     setCoverUrl(coverImageUrl);
     try {
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/story/${storyId}/publish`,
@@ -72,7 +73,7 @@ const NewStoryEditor = () => {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tags }),
+          body: JSON.stringify({ tags , coverImageUrl }),
         }
       );
 

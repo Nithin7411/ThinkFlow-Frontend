@@ -12,6 +12,7 @@ const WelcomeContent = () => {
           <Link to="/dashboard">
             <button className="toDashboard">Get Started</button>
           </Link>
+          
         </div>
 
         <img

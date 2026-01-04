@@ -1,18 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { uploadCoverImage } from "../script/uploadCoverImage";
+import "./tagsPopup.css";
 
 const TagsPopUp = ({ handlePublish, toggleTagsPopup, setTags }) => {
   const [tagValue, setTagValue] = useState("");
   const [localTags, setLocalTags] = useState([]);
   const [showHelp, setShowHelp] = useState(false);
 
+  const [coverFile, setCoverFile] = useState(null);
+  const [coverUrl, setCoverUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
+
+  const [confirmNoCover, setConfirmNoCover] = useState(false);
+
   const addTag = () => {
     const value = tagValue.trim().toLowerCase();
-    if (!value) return;
-    if (localTags.includes(value)) return;
+    if (!value || localTags.includes(value)) return;
 
     const updated = [...localTags, value];
     setLocalTags(updated);
-    setTags(updated); 
+    setTags(updated);
     setTagValue("");
   };
 
@@ -29,38 +36,95 @@ const TagsPopUp = ({ handlePublish, toggleTagsPopup, setTags }) => {
     }
   };
 
+  const handleImageUpload = async () => {
+    if (!coverFile) return;
+
+    if (coverFile.size > 2 * 1024 * 1024) {
+      alert("Cover image must be under 2MB");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const url = await uploadCoverImage(coverFile);
+      setCoverUrl(url);
+      setConfirmNoCover(false);
+    } catch (err) {
+      alert("Image upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleFinalPublish = (forceWithoutCover = false) => {
+    setConfirmNoCover(false);
+
+    handlePublish({
+      tags: localTags,
+      coverImageUrl: forceWithoutCover ? null : coverUrl || null,
+    });
+  };
+
+  const handleClose = () => {
+    setTagValue("");
+    setLocalTags([]);
+    setCoverFile(null);
+    setCoverUrl("");
+    setConfirmNoCover(false);
+    toggleTagsPopup();
+  };
+
   return (
     <div className="backgroundBlur">
       <div className="tagsPopup">
 
-        {/* Title */}
         <div className="popupHeader">
-          <h2>Add tags</h2>
+          <h2>Add tags & cover</h2>
           <span
             className="helpIcon"
-            onClick={() => setShowHelp(!showHelp)}
+            onClick={() => setShowHelp(prev => !prev)}
           >
             ?
           </span>
         </div>
 
-        {/* Help text */}
         {showHelp && (
           <p className="helpText">
-            Tags help readers find your story.
-            Choose words that describe the main topic.
-            Example: <b>javascript</b>, <b>learning</b>, <b>web</b>
+            Tags help readers discover your story.
+            A cover image improves visibility, but it’s optional.
           </p>
         )}
 
-        {/* Input */}
+        <div className="coverUpload">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setCoverFile(e.target.files[0])}
+          />
+
+          <button
+            onClick={handleImageUpload}
+            disabled={!coverFile || uploading}
+          >
+            {uploading ? "Uploading..." : "Upload Cover"}
+          </button>
+
+          {coverUrl && (
+            <img
+              src={coverUrl}
+              alt="Cover preview"
+              className="coverPreview"
+            />
+          )}
+        </div>
+
         <div className="addTagsFeature">
           <input
             type="text"
             placeholder="Type a tag and press Enter"
             maxLength={30}
             value={tagValue}
-            onChange={e => setTagValue(e.target.value)}
+            onChange={(e) => setTagValue(e.target.value)}
             onKeyDown={handleKeyDown}
           />
           <button onClick={addTag} className="addTags">
@@ -68,34 +132,51 @@ const TagsPopUp = ({ handlePublish, toggleTagsPopup, setTags }) => {
           </button>
         </div>
 
-        {/* Added tags */}
         {localTags.length > 0 && (
           <div className="tagsList">
             {localTags.map(tag => (
               <span key={tag} className="tagChip">
                 #{tag}
-                <button
-                  className="removeTag"
-                  onClick={() => removeTag(tag)}
-                >
-                  ×
-                </button>
+                <button onClick={() => removeTag(tag)}>×</button>
               </span>
             ))}
           </div>
         )}
 
-        {/* Actions */}
+        {confirmNoCover && !coverUrl && (
+          <div className="confirmBox">
+            <p>Publish without a cover image?</p>
+            <div className="confirmActions">
+              <button onClick={() => setConfirmNoCover(false)}>
+                Add cover
+              </button>
+              <button
+                className="danger"
+                onClick={() => handleFinalPublish(true)}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="popupOptions">
           <button
-            onClick={() => handlePublish(localTags)}
             className="publishTags"
-            disabled={localTags.length === 0}
+            disabled={localTags.length === 0 || uploading}
+            onClick={() => {
+              if (!coverUrl && !confirmNoCover) {
+                setConfirmNoCover(true);
+                return;
+              }
+              handleFinalPublish();
+            }}
           >
             Publish
           </button>
-          <button onClick={toggleTagsPopup} className="closeTags">
-            Close
+
+          <button onClick={handleClose} className="closeTags">
+            Cancel
           </button>
         </div>
 

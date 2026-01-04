@@ -11,7 +11,7 @@ import StoryReactions from "./StoryReactions";
 import ResponseEditor from "./ResponseEditor";
 import AuthorInfo from "./AuthorInfo";
 import TagsContainer from "./TagsContainer";
-import Loader from "./Loader"; // adjust path if needed
+import Loader from "./Loader";
 import { fromFirestoreTime } from "./formatTime";
 
 const Storycontent = () => {
@@ -27,13 +27,11 @@ const Storycontent = () => {
 
   const toggleModal = () => setModal(prev => !prev);
 
-  /* ===== Add new response instantly ===== */
   const updateResponseCount = (newComment) => {
     setResponseCount(prev => prev + 1);
     setStoryComments(prev => [newComment, ...prev]);
   };
 
-  /* ===== Load story + responses ===== */
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -60,7 +58,6 @@ const Storycontent = () => {
     loadData();
   }, [id]);
 
-  /* ===== LOADING ===== */
   if (loading) {
     return (
       <>
@@ -70,7 +67,6 @@ const Storycontent = () => {
     );
   }
 
-  /* ===== ERROR ===== */
   if (error || !story) {
     return (
       <>
@@ -82,13 +78,21 @@ const Storycontent = () => {
     );
   }
 
-  /* ===== SUCCESS ===== */
   return (
     <>
       <Header />
 
       <div className="story">
-        <h1>{parse(story.title || "")}</h1>
+         <h1>{parse(story.title || "")}</h1>
+
+        <div className="story-cover-wrapper">
+          <img
+            src={story.coverImageUrl || "/default-cover.jpg"}
+            alt="Story cover"
+            className="story-cover-image"
+          />
+        </div>
+       
 
         <AuthorInfo story={story} />
 
@@ -100,7 +104,7 @@ const Storycontent = () => {
           handleClick={toggleModal}
         />
 
-        {/* ===== RESPONSES MODAL ===== */}
+
         {modal && (
           <div className="responses-modal">
             <div className="close-responses">
@@ -113,7 +117,6 @@ const Storycontent = () => {
           </div>
         )}
 
-        {/* ===== STORY CONTENT ===== */}
         {story.content?.map((element, index) => {
           const HeaderTag = `h${element.data?.level || 2}`;
 

@@ -36,8 +36,9 @@ const Header = function ({ onClick, storyId, data, setTags }) {
     checkLoggedInStatus();
   }, []);
 
-const publishStory = function (tags) {
-  onClick(storyId, tags);
+const publishStory = function ( tags, coverImageUrl) {
+  console.log("header => ",coverImageUrl);
+  onClick(storyId, tags, coverImageUrl);
 };
 
 

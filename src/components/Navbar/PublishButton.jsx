@@ -4,18 +4,17 @@ import TagsPopUp from "./TagsPopUp";
 
 
 const PublishButton = ({handleClick, id, setTags, data}) => {
-  console.log(setTags);
+  
   const navigate = useNavigate();
   const [loader , setLoader] = useState(false);
   const [tagsPopup , setTagsPopup] = useState(false);
   const [isDisabled , setIsDisabled] = useState(true)
 
-const publishStory = (tags) => {
+const publishStory = ({ tags, coverImageUrl } ) => {
   setTags(tags);       
   setTagsPopup(false); 
   setLoader(true);
-
-  handleClick(tags);  
+  handleClick(tags,coverImageUrl);  
 
   setTimeout(() => {
     setLoader(false);

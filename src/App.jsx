@@ -13,6 +13,7 @@ import StoryContent from "./components/dashboard/StoryContent.jsx";
 import MyProfile from './components/Profile/MyProfile.jsx';
 import UserPage from './components/UserProfile/UserPage.jsx';
 import SearchPage from './components/Navbar/SearchPage.jsx';
+import TestUpload from './components/WelcomePage/CloudinaryTest.jsx';
 
 function App() {
   useEffect(() => {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/" element={<WelcomePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path='/add-story' element={<AddStory />} />
+        <Route path="/cloudinary-test" element={<TestUpload />} />
         <Route path="/stories/drafts" element={<Drafts />} />
         <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/story/:id" element={<StoryContent />} />

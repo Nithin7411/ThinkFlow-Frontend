@@ -1,6 +1,7 @@
 .story {
-  width: 1000px;
-  margin: 20px 40px;
+  min-width: 900px;
+  max-width: 1250px;
+  margin: 20px auto;
   padding: 25px;
   padding-bottom: 10px;
   background-color: #ffffff;
@@ -363,4 +364,16 @@ p:last-child {
   font-family: Arial, Helvetica, sans-serif;
  border-left: 2px solid #908f8f;
  background-color: #e8e8e8;
+}
+
+.story-cover-wrapper {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.story-cover-image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
 }

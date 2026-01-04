@@ -11,6 +11,9 @@ const StoryEditor = ({ initialStory, onStoryChange, onEditorReady  }) => {
     if (!editorInstance.current) {
       const storyEditor = new EditorJS({
         holder: 'editorjs-story',
+         autofocus: true,
+        inlineToolbar: true,
+
         tools: {
           header: {
             class: Header,
@@ -38,6 +41,9 @@ const StoryEditor = ({ initialStory, onStoryChange, onEditorReady  }) => {
               : []),
           ],
         },
+         onPaste: (event) => {
+            console.log("Content Pasted")
+  },
         onReady: () => {
           editorInstance.current = storyEditor;
           onEditorReady?.(storyEditor);
