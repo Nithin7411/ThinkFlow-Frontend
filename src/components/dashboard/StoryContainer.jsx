@@ -13,7 +13,6 @@ const StoryContainer = ({ element, username, userProfile }) => {
   const navigate = useNavigate();
 
   const { title, id: storyId, content, publishedAt } = element || {};
-     
 
   const [story, setStory] = useState(null);
   const [responsesCount, setResponsesCount] = useState(0);
@@ -32,7 +31,6 @@ const StoryContainer = ({ element, username, userProfile }) => {
     loadResponsesCount();
   }, [storyId]);
 
-  /* ===== Story click ===== */
   const handleTitleClick = async () => {
     const res = await fetchApi(
       `${import.meta.env.VITE_API_URL}/story/${storyId}`
@@ -48,6 +46,7 @@ const StoryContainer = ({ element, username, userProfile }) => {
   };
 
   return (
+
     <div className="story">
       <AuthorInfo
         AuthorId={id}
@@ -59,10 +58,11 @@ const StoryContainer = ({ element, username, userProfile }) => {
       <h1 onClick={handleTitleClick}>{title}</h1>
 
       <div className="introText">
-        {content?.[0]
-          ? parse(truncateText(content[0].data.text))
+        {element?.preview
+          ? parse(truncateText(element.preview, 200))
           : null}
       </div>
+
 
       <TagsContainer story={story || element} />
 

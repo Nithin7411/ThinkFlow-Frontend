@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 const AuthorInfo =  ({story, username, userProfile, AuthorId}) => {
   const location = useLocation();
-   console.log("Story" ,story);
   return (
     <>
       {

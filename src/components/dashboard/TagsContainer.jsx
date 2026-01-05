@@ -1,5 +1,4 @@
 const TagsContainer = ({ story }) => {
-  console.log(story);
   const tags = Array.isArray(story?.tags)
     ? story.tags
     : typeof story?.tags === "string" && story.tags.trim()

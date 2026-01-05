@@ -12,6 +12,7 @@ const UserPage = () => {
     try{
       const getAuthorData = async () => {
       const data = await fetchApi(`${import.meta.env.VITE_API_URL}/user/profile/` + id);
+      console.log(data)
       setAuthorData(data);
       }
       getAuthorData();

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useFetchData from "./fetchDashboard";
 import StoryContainer from "./StoryContainer";
 import Loader from "./Loader";
+import "./displayStories.css";
 
 const GetStories = () => {
   const { data, error, loading } = useFetchData();
@@ -28,6 +29,7 @@ const GetStories = () => {
 
   return (
     <div className="storiesContainer">
+      <h1 className="StoryTitle">Stories</h1>
       {showLoader && <Loader />}
 
       {!showLoader &&
