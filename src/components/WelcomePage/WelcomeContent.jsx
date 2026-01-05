@@ -16,7 +16,7 @@ const WelcomeContent = () => {
         </div>
 
         <img
-          src="https://miro.medium.com/v2/format:webp/4*SdjkdS98aKH76I8eD0_qjw.png"
+          src="./src/components/WelcomePage/test1.png"
           alt="Writing and learning illustration"
         />
       </div>
@@ -30,7 +30,6 @@ const WelcomeContent = () => {
         <p>Blog</p>
         <p>Privacy</p>
         <p>Terms</p>
-        <p>Text to Speech</p>
         <p>Teams</p>
       </div>
     </>

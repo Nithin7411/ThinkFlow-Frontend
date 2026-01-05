@@ -38,8 +38,8 @@ const MyProfile =  () => {
         <img src={userData.avatar_url} alt="profile-picture" />
         <h2>{userData.name}</h2>
         <div className="followDetails">
-          <h3 onClick={() => displayFollowDetails(userData.followers)}> Followers: {userData.followers?.length}</h3>
-          <h3 onClick={() => displayFollowDetails(userData.following)}> Following: {userData.following?.length}</h3>
+          <h3 onClick={() => displayFollowDetails(userData.followers)}> Followers: 0 </h3>
+          <h3 onClick={() => displayFollowDetails(userData.following)}> Following: 0 </h3>
         </div>
         {
         popUpState ? <FollowListPopUp data={type} togglePopUp={togglePopUp} /> : null

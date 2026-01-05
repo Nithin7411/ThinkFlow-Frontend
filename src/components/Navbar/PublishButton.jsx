@@ -34,6 +34,7 @@ console.log(data)
 
   return (
     <>
+    <h1 className="WriteSegment">Write Your Thoughts</h1>
     <button className="publish-button" onClick={toggleTagsPopup} disabled={isDisabled}>
       Publish
     </button>

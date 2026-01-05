@@ -37,7 +37,6 @@ const Header = function ({ onClick, storyId, data, setTags }) {
   }, []);
 
 const publishStory = function ( tags, coverImageUrl) {
-  console.log("header => ",coverImageUrl);
   onClick(storyId, tags, coverImageUrl);
 };
 
@@ -52,6 +51,9 @@ const publishStory = function ( tags, coverImageUrl) {
       {
         location.pathname !== '/add-story' && isLoggedIn ? <WriteButton /> : null
       }
+      {/* {
+        location.pathname !== '/add-story' && isLoggedIn ? <h1 className="WriteSegment">Write Your Thoughts</h1> : null
+      } */}
       {
         location.pathname === '/add-story' && isLoggedIn ? <PublishButton handleClick={publishStory} id={storyId} setTags={setTags} data={data} /> : null
       }

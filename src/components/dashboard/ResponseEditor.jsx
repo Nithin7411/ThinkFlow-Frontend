@@ -11,7 +11,6 @@ const ResponseEditor = ({ onNewResponse }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [note, setNote] = useState("");
 
-  /* 🔐 Check login (silent) */
   useEffect(() => {
     const checkLoggedInStatus = async () => {
       try {
@@ -25,7 +24,6 @@ const ResponseEditor = ({ onNewResponse }) => {
     checkLoggedInStatus();
   }, []);
 
-  /* ✍️ Init Editor (always editable) */
   useEffect(() => {
     const responseEditor = new EditorJS({
       holder: "editorjs",
@@ -60,7 +58,6 @@ const ResponseEditor = ({ onNewResponse }) => {
 
       if (!text) return;
 
-      // 🚫 Not logged in → explain WHY
       if (!isLoggedIn) {
         showNote(
           "Login to continue — this helps prevent spam and ensures genuine responses."
@@ -84,7 +81,7 @@ const ResponseEditor = ({ onNewResponse }) => {
       );
 
       if (!response.ok) throw new Error("Response failed");
-
+      console.log(response);
       const result = await response.json();
       onNewResponse?.(result);
 

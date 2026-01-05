@@ -122,7 +122,7 @@ const NewStoryEditor = () => {
       />
 
       {saveMessage && <div className="save-message">Draft saved</div>}
-
+     
       <FloatingAIButton onClick={toggleGeminiPrompt} />
 
       <div className={`editor-shell ${layoutState}`}>

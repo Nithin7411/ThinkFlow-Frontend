@@ -354,3 +354,13 @@
   gap: 12px;
   margin-top: 20px;
 }
+
+.WriteSegment{
+  position: absolute;
+  top:30%;
+  left: 40%;
+  overflow-y: visible;
+  font-weight: 400;
+  font-size: 30px;
+
+}
