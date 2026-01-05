@@ -16,7 +16,7 @@ const WelcomeContent = () => {
         </div>
 
         <img
-          src="./src/components/WelcomePage/test1.png"
+          src="https://res.cloudinary.com/djgbopsnw/image/upload/v1767593904/story-covers/mu1qw82hvuzclyjhr694.png"
           alt="Writing and learning illustration"
         />
       </div>
