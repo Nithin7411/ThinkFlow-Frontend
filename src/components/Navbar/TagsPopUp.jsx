@@ -39,7 +39,7 @@ const TagsPopUp = ({ handlePublish, toggleTagsPopup, setTags }) => {
   const handleImageUpload = async () => {
     if (!coverFile) return;
 
-    if (coverFile.size > 2 * 1024 * 1024) {
+    if (coverFile.size > 9 * 1024 * 1024) {
       alert("Cover image must be under 2MB");
       return;
     }

@@ -12,7 +12,6 @@ const Clap = ({ story }) => {
 
   const location = useLocation();
 
-  /* 🔐 fetch session user */
   useEffect(() => {
     const checkLoggedInStatus = async () => {
       try {
@@ -27,7 +26,6 @@ const Clap = ({ story }) => {
     checkLoggedInStatus();
   }, []);
 
-  /* ✅ compute author safely */
   const isAuthor =
     isLoggedIn && currentUser?.id === story.authorId;
 
@@ -37,13 +35,11 @@ const Clap = ({ story }) => {
   };
 
   const handleClap = async () => {
-    // 🚫 not logged in
     if (!isLoggedIn) {
       showNote("Login to continue clapping");
       return;
     }
 
-    // 🚫 author restriction
     if (isAuthor) {
       showNote("Authors cannot clap their own stories");
       return;
@@ -91,7 +87,6 @@ const Clap = ({ story }) => {
         viewBox="0 0 24 24"
         aria-label="clap"
       >
-        {/* SVG PATHS — unchanged */}
         <path
           fillRule="evenodd"
           d="M11.37.828 12 3.282l.63-2.454zM15.421 1.84l-1.185-.388-.338 2.5zM9.757 1.452l-1.184.389 1.523 2.112zM20.253 11.84 17.75 7.438c-.238-.353-.57-.584-.93-.643a.96.96 0 0 0-.753.183 1.13 1.13 0 0 0-.443.695c.014.019.03.033.044.053l2.352 4.138c1.614 2.95 1.1 5.771-1.525 8.395a7 7 0 0 1-.454.415c.997-.13 1.927-.61 2.773-1.457 2.705-2.704 2.517-5.585 1.438-7.377"

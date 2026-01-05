@@ -360,7 +360,8 @@
   top:30%;
   left: 40%;
   overflow-y: visible;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 30px;
+  cursor: none;
 
 }

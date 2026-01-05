@@ -13,7 +13,7 @@ export default async function authFetch(url, options = {}) {
   });
 
   if (res.status === 401) {
-    return null; // user not logged in
+    return null; 
   }
 
   return res.json();
